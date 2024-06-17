@@ -1,0 +1,156 @@
+.related-widget-wrapper, #content-main {
+    width: 100% !important;
+}
+
+.clockbox {
+    background-color: white !important;
+}
+
+.situation-border {
+    border-radius: 0.5rem;
+}
+
+.calendarbox {
+    background-color: white !important;
+}
+
+.form-row.empty-form {
+    display: none !important;
+}
+
+.inline-deletelink {
+    float: none !important;
+    background: none !important;
+}
+
+.inline-related {
+    margin-top: 5% !important;
+}
+
+.form-row {
+    display: table-row !important;
+}
+
+input[type=submit] {
+    text-transform: capitalize !important;
+}
+
+.paginator .this-page {
+    background-color: #1AB394;
+    color: white;
+    border-radius: 2px;
+}
+
+.paginator > a {
+    background-color: lightgrey !important;
+    border-radius: 2px;
+}
+
+.formset-card {
+    font-family: sans-serif;
+    border: 2px solid black !important;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.formset-card legend {
+    padding: 5px 10px;
+    /*font-size: 32px;*/
+    border-radius: 5px;
+    margin-left: 15px;
+    width: auto;
+}
+
+#changelist-filter {
+    display: flex;
+}
+
+#changelist-filter ul {
+    padding: 0 0px 15px !important;
+}
+
+.selector-available h2 {
+    font-size: 1.5rem;
+    background-color: #d7d7d7 !important;
+    text-transform: capitalize !important;
+}
+
+.selector-chosen h2 {
+    font-size: 1.5rem;
+    text-transform: capitalize !important;
+    background-color: #d7d7d7 !important;
+
+}
+
+
+.select2-container--admin-autocomplete.select2-container {
+    width: 100% !important;
+    border-color: #1ab394 !important;
+}
+
+.select2-container--admin-autocomplete .select2-selection--single {
+    background-color: #fff !important;
+    border: 1px solid #aaa !important;
+    border-radius: 4px !important;
+}
+
+
+.select2-results__option--highlighted {
+    background-color: #1ab394 !important;
+    color: white !important;
+
+}
+
+.vTextField,.vLargeTextField {
+    width: 100% !important;
+}
+
+.select2-dropdown select2-dropdown--below {
+    z-index: 9999 !important;
+}
+
+.calendarbox, .select2-container {
+    z-index: 2050 !important;
+}
+
+.fc-event-time {
+    color: whitesmoke !important;
+}
+
+.select2-selection__rendered {
+    line-height: 32px !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 36px !important;
+}
+
+.select2-selection__arrow {
+    height: 35px !important;
+}
+
+.text-ellipsis {
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+
+@media (max-width: 1000px ) {
+    .formset-table thead th {
+        max-width: 100px!important;
+    }
+
+}
+
+@media (max-width: 800px ) {
+   .formset-table thead th {
+        max-width: 50px!important;
+    }
+
+}
+
+@media (max-width: 400px ) {
+    formset-card table th {
+    }
+
+}

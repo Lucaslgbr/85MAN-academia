@@ -1,0 +1,16 @@
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+    {% if has_add_permission %}
+        {% url cl.opts|admin_urlname:'add' as add_url %}
+        <a class="btn btn-primary btn-sm mb-2" style="margin-left: 1rem;margin-top: 1%" href="{% add_preserved_filters add_url is_popup to_field %}" class="addlink">
+            {% blocktranslate with cl.opts.verbose_name as name %}Novo{% endblocktranslate %}
+        </a>
+        {% if entrada_financeira_import %}
+            <a class="btn btn-primary btn-sm mb-2" style="margin-left: 1rem;margin-top: 1%"  id='importar_entrada' onclick="importarArquivoCSV()" class="addlink">
+                Importar
+            </a>
+        {%endif%}
+
+    {% endif %}
+{% endblock %}

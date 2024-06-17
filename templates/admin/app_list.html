@@ -1,0 +1,28 @@
+{% load i18n %}
+
+{% if app_list %}
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+
+                {% for app in app_list %}
+                    <li>
+                        <a href="#"><i class="{{ app.icon }}"></i> <span
+                                title="{% blocktranslate with name=app.name %}Models in the {{ name }} application{% endblocktranslate %}"
+                                class="nav-label">{{ app.name }}</span><span
+                                class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            {% for model in app.models %}
+                                <li>
+                                    <a class="dropdown-item" href="{{ model.admin_url }}"{% if model.admin_url in request.path %}
+                                       aria-current="page"{% endif %}>{{ model.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
+{% endif %}

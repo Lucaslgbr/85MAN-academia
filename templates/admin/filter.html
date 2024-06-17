@@ -1,0 +1,19 @@
+{% load i18n %}
+<div class="col-lg-3">
+    <h6>{% blocktrans with title as filter_title %}{{ filter_title }} {% endblocktrans %}</h6>
+    <ul class="admin-filter-{{ title|cut:' ' }}">
+        <li>
+            <select class="form-control" style="width: 95%;"
+                    onchange="filter_select(this.options[this.selectedIndex].value)">
+                {% for choice in choices %}
+                    <option{% if choice.selected %} selected="selected"{% endif %}
+                                                    value="{{ choice.query_string|iriencode }}">{{ choice.display }}</option>
+                {% endfor %}
+            </select>
+        </li>
+    </ul>
+</div>
+<script>
+
+
+</script>

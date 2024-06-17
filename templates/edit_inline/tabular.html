@@ -1,0 +1,72 @@
+{% load i18n admin_urls static admin_modify widget_tweaks %}
+<div class="js-inline-admin-formset inline-group" id="{{ formset.prefix }}-group"
+     data-inline-type="tabular"
+     data-inline-formset="{{ formset.formset_data }}">
+    <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
+        {{ formset.management_form }}
+        <fieldset class="module {{ formset.classes }}">
+            <legend>{{ formset.fk.opts.verbose_name|capfirst }}</legend>
+            <table class="formset-table {{ formset_table_class_name|default:'table table-bordered' }}">
+                {% for form in formset.forms %}
+                    {% if forloop.first %}
+                        <thead>
+                        <tr>
+                            <th class="original"></th>
+                            {% for field in form.visible_fields %}
+                                <th title="{{ field.label|capfirst }}" class="text-ellipsis">{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                    {% endif %}
+                {% endfor %}
+                <tbody>
+                {% for form in formset.forms %}
+                    <tr class="form-row {% if form.instance.id %}has_original{% endif %}"
+                        id="{{ formset.prefix }}-{{ forloop.counter0 }}">
+                        <td class="original">
+                            {% for hidden in form.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
+                        </td>
+                        {% for field in form.visible_fields %}
+                            {% if forloop.last %}
+                                <td class="delete">
+                                    {% if form.instance.id %}
+                                        {{ field|add_class:"form-control" }}
+                                        <span style="color: darkred">{{ field.field.errors.as_ul }}</span>
+                                    {% endif %}
+                                </td>
+                            {% else %}
+                                <td class="field-{{ field.name }}">
+                                    {{ field|add_class:"form-control" }}
+                                    <span style="color: darkred">{{ field.errors.as_ul }}</span>
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                <tr class="form-row empty-form"
+                    id="{{ formset.prefix }}-empty">
+                    <td class="original">
+                        {% for hidden in formset.empty_form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                    </td>
+                    {% for field in formset.empty_form.visible_fields %}
+                        {% if forloop.last %}
+                            <td class="delete"></td>
+                        {% else %}
+                            <td class="field-{{ field.name }}">
+                                {{ field|add_class:"form-control" }}
+                                <span style="color: darkred">{{ field.field.errors.as_ul }}</span>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% block post_formset_actions %}
+                {{ post_formset_actions }}
+            {% endblock %}
+        </fieldset>
+    </div>
+</div>

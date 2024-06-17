@@ -1,0 +1,105 @@
+{% extends 'admin/base_site.html' %}
+{% load static widget_tweaks %}
+
+{% block content %}
+    <form method="get" class="col-lg-10">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="id_conta_bancaria" class="col-form-label"> Conta bancária </label>
+                    <div>
+                        {{ filter_form.conta_bancaria|add_class:'form-control' }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="id_data_inicial" class="col-form-label"> Data Inicial </label>
+                    <div>
+                        {{ filter_form.data_inicial|add_class:'form-control' }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="id_data_final" class="col-form-label"> Data Final </label>
+                    <div>
+                        {{ filter_form.data_final|add_class:'form-control' }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="id_categoria_entrada_financeira" class="col-form-label"> Categoria de entrada financeira </label>
+                    <div>
+                        {{ filter_form.categoria_entrada_financeira|add_class:'form-control' }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="id_categoria_saida_financeira" class="col-form-label"> Categoria de saída financeira </label>
+                    <div>
+                        {{ filter_form.categoria_saida_financeira|add_class:'form-control' }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4" style="display:flex;">
+                <button type="submit" class="btn btn-primary"
+                        style="align-self: center; width: 100%;"> Filtrar
+                </button>
+            </div>
+            
+        </div>
+    </form>
+        <form method="post" class="col-lg-2 d-flex" target="_blank">
+            {% csrf_token %}
+            <div class="col-lg-12 d-flex">
+                <button type="submit" class="btn btn-primary" style="align-self: center; width: 100%">
+                    Imprimir
+                </button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <table class="table table-bordered" style="text-align: center;width: 100%">
+            <thead>
+            <tr>
+                <th> Data</th>
+                <th> Descrição</th>
+                <th> Data de referência</th>
+                <th> Entrada</th>
+                <th> Saída</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entrada in entradas %}
+                <tr>
+                    <td> {{ entrada.data|date:"SHORT_DATE_FORMAT" }} </td>
+                    <td> {{ entrada.descricao }} </td>
+                    <td>  </td>
+                    <td> {{ entrada.valor }} </td>
+                    <td>  </td>
+                </tr>
+            {% endfor %}
+            {% for saida in saidas %}
+                <tr>
+                    <td> {{ saida.data|date:"SHORT_DATE_FORMAT" }} </td>
+                    <td> {{ saida.descricao }} </td>
+                    <td> {{ saida.despesa.data_referencia }} </td>
+                    <td>  </td>
+                    <td> {{ saida.valor }} </td>
+                </tr>
+            {% endfor %}
+            <tr style="font-weight: bold">
+                <td colspan="3"></td>
+                <td>{{ total_entrada }} </td>
+                <td>{{ total_saida }} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block stylesheet %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" sizes="48x48"/>
+{% endblock %}
+{% block content %}
+    <div class="row" style="width: 100%!important">
+        <div class="col-lg-4">
+            <ul>
+                <li>Descrição: {{ object.descricao }}</li>
+                <li>Valor: R${{ object.valor|floatformat:2 }}</li>
+                <li>Valor pendente: R${{ object.get_valor_pendente|floatformat:2 }}</li>
+                <li>Data: {{ object.data|default:'Não informado' }}</li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <ul>
+                <li>Status: {{ object.status|default:'Não informado' }}</li>
+                <li>Animais: {% for animal in object.animais.all %} {{animal}} {%empty%}Não vinculado{%endfor%}</li>
+                <li>Data de referência: {{ object.data_referencia }}</li>
+
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <ul>
+                <li>Categoria de ação: {{ object.categoria_acao|default:'Não informado' }}</li>
+                <li>Categoria de despesa: {{ object.categoria_despesa }}</li>
+                <li>Atividades: {% for atividade in object.atividades.all %} {{atividade}} {%empty%}Não vinculado{%endfor%}</li>
+            </ul>
+        </div>
+        <div class="col-lg-12">
+            <ul>
+                <li>Observação interna: {{ object.observacao_interna|default:'Não informado' }}</li>
+            </ul>
+        </div>
+        <div class="col-lg-12">
+            <ul>
+                <li>Observações: {{ object.observacoes|default:'Não informado' }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="w-100">
+        <div class="mb-2">{{ despesas }}</div>
+        <div class="mb-2">{{ atividades }}</div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/sweetalert2.js' %}"></script>
+    <script src="{% static 'js/pagamento_despesa.js' %}"></script>
+{% endblock %}
+
+
+

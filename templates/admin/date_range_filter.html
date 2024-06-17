@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="col-lg-6 row">
+    <div class="col-lg-12">
+        <h6>{% blocktrans with title as filter_title %}{{ filter_title }} {% endblocktrans %}</h6>
+    </div>
+    <div class="col-lg-6">
+        <input type="date" class="form-control"
+               onchange="changeDate('{{ spec.lookup_kwarg_since }}',event.target.value)"
+               value="{{ spec.date_params.date__gte }}">
+    </div>
+    <div class="col-lg-6">
+        <input type="date" class="form-control"
+               onchange="changeDate('{{ spec.lookup_kwarg_until }}',event.target.value)"
+               value="{{ spec.date_params.date__lte }}">
+    </div>
+</div>
+<script>
+    function changeDate(field_prefix, value) {
+        const params = new URLSearchParams(window.location.search)
+        params.set(field_prefix, value)
+        filter_select(`?${params.toString()}`)
+    }
+
+</script>

@@ -1,0 +1,161 @@
+
+{% load i18n static  %}
+
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheet %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/inspinia.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/animate.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/toastr.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert2.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+          integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/admin-transformer.css" %}">
+    {% if not is_popup and is_nav_sidebar_enabled %}
+    {% endif %}
+    {% block extrastyle %}{% endblock %}
+    {% block stylesheet_rtl %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+    {% block responsive %}
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive.css" %}">
+    {% endblock %}
+    {% block blockbots %}
+        <meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+</head>
+
+<body id="corpo" class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+      data-admin-utc-offset="{% now "Z" %}">
+<div class="ms-preload" id="loader-usuario-{{ user.id }}">
+    <div class="loader-preload"></div>
+</div>
+<div id="wrapper">
+    {% if not is_popup %}
+        {% include 'admin/nav_sidebar.html' %}
+    {% endif %}
+    <div id="page-wrapper" class="gray-bg {% if is_popup %}w-100{% endif %}">
+        {% if not is_popup %}
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                       
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        {% block usertools %}
+                            {% if has_permission %}
+                                <li>
+                                    <a class="nav-link dropdown-toggle dropdown" href="#" data-toggle="dropdown">
+                                        <span>&nbsp; {% block welcome-msg %}
+                                            {{ user.get_full_name }}
+                                        {% endblock %}</span><b
+                                            class="caret"></b>
+                                    </a>
+                                    <div class="dropdown-menu " style="margin-right: 2%">
+                                        <a href="{% url 'admin:password_change' %}" class="dropdown-item">
+                                            <i class="fa fa-lock"></i> Alterar senha</a>
+                                        <a href="{% url 'admin:logout' %}?next=/admin/" class="dropdown-item">
+                                            <i class="fa fa-sign-out"> </i> Sair
+                                        </a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endblock %}
+                        {% block nav-global %}{% endblock %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <h4 class="card-header">
+                        <div style="font-size: 1rem">
+                            {% block breadcrumbs %}
+                                <div class="breadcrumbs">
+                                    <a>{% translate 'Home' %}</a>
+                                    {% if title %} &rsaquo; {{ title }}{% endif %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </h4>
+                    <div class="card-body">
+                        <div class="row">
+                            {% if has_back_button %}
+                                <a href="{{ back_button_href }}" class="btn btn-primary mb-1">Voltar</a>
+                            {% endif %}
+                            {% block content %}
+                                {% block object-tools %}{% endblock %}
+                                {{ content }}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.metisMenu.js' %}"></script>
+<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/inspinia.js' %}"></script>
+<script src="{% static 'js/utils.js' %}?{% now "U" %}"></script>
+<script src="{% static 'js/admin-transformer.js' %}?{% now "U" %}"></script>
+<script src="{% static 'js/toastr.min.js' %}"></script>
+<script src="{% static 'js/services/services.js' %}?{% now "U" %}"></script>
+<script src="{% static 'js/custom-jquery-libs.js' %}?{% now "U" %}"></script>
+<script src="{% static 'js/jquery.inputmask.bundle.js' %}"></script>
+<script defer src="{% static 'js/mask-setup.js' %}?{% now "U" %}"></script>
+<script defer src="{% static 'js/sweetalert2.js' %}?{% now "U" %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/pt-BR.min.js"
+        integrity="sha512-H1yBoUnrE7X+NeWpeZvBuy2RvrbvLEAEjX/Mu8L2ggUBja62g1z49fAboGidE5YEQyIVMCWJC9krY4/KEqkgag=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'info' %}
+            <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'warning' %}
+            <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'error' %}
+            <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<script>
+    function filter_select(opt) {
+        window.location = window.location.pathname + opt
+    }
+
+    let CONTEXT = {
+        CSRF_TOKEN: '{{ csrf_token }}',
+    }
+    {% if js_context %}
+        CONTEXT = {...CONTEXT, ...{{js_context|safe}}}
+    {% endif  %}
+</script>
+
+{% block scripts %}
+
+{% endblock %}
+{% block form_media %}
+
+{% endblock %}
+</body>
+
+</html>

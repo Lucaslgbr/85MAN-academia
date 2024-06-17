@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  django:  &django
+    container_name: academia_django
+    environment:
+      - DEBUG=${DEBUG}
+    restart: always
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    command: >
+                sh -c "
+                python manage.py runserver 0.0.0.0:${HOST_PORT}
+                "
+    volumes:
+    - .:/code
+    - media_volume:/code/media
+    ports:
+    - ${HOST_PORT}:${HOST_PORT}
+    - 3001:3001
+    depends_on:
+    - db  
+  weasyprint:
+    container_name: academia_weasyprint
+    image: 4teamwork/weasyprint
+    ports:
+      - 5001:5001
+  db:
+    container_name: academia_db
+    image: postgres:16
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    command: -p ${DB_PORT}
+    expose:
+      - '${DB_PORT}'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  media_volume:
+  pgdata:

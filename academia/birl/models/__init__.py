@@ -3,10 +3,13 @@ from .aluno import Aluno
 from .equipamento import Equipamento
 from .equipamentoaluno import EquipamentoAluno
 from .estoque import Estoque
-from .fluxocaixa import FluxoCaixa
 from .horario import Horario
 from .instrutor import Instrutor
 from .matricula import Matricula
 from .mensalidade import Mensalidade
-from .mensalidade import Mensalidade
 from .venda import Venda
+from .entrada_financeira import EntradaFinanceira
+from .saida_financeira import SaidaFinanceira
+from .produto import Produto
+from .conta_bancaria import ContaBancaria
+from .frequencia import Frequencia

@@ -7,4 +7,5 @@ django-auditlog==2.0.0
 djangorestframework==3.13.1
 crispy_bootstrap4
 weasyprint==55.0
+locust
 

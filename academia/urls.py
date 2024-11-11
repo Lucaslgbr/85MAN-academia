@@ -19,8 +19,11 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from rest_framework.reverse import reverse_lazy
 from django.contrib.auth.views import *
+from academia.birl.views import RelatorioFluxoCaixa
 
 urlpatterns = [
     path('', RedirectView.as_view(url=reverse_lazy('admin:login'))),
     path('admin/', admin.site.urls),
+    path('academia/fluxo-caixa/relatorio', login_required(RelatorioFluxoCaixa.as_view()),
+        name='relatorio_fluxo_caixa'),
 ]

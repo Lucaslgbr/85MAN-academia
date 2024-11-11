@@ -1,1 +1,4 @@
-# from .usuario_admin import UsuarioAdmin
+from .conta_bancaria_admin import ContaBancariaAdmin
+from .entrada_financeira_admin import EntradaFinanceiraAdmin
+from .saida_financeira_admin import SaidaFinanceiraAdmin
+from .usuario_admin import UsuarioAdmin

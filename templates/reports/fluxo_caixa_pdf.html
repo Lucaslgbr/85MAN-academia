@@ -2,11 +2,7 @@
 {% block upper_content %}
 <address id="from">
     <dt>Data: {% now 'd/m/Y H:i' %}</dt>
-    <dt><strong>Filtros:</strong></dt>
     <dt>{% if data_inicial %} Periodo: De {{ data_inicial }} até {{ data_final }}{%endif%}</dt>
-    <dt>Conta bancária: {% if conta_bancaria %} {{ conta_bancaria }} {%else%} Todas {%endif%}</dt>
-    <dt>Categoria de entrada financeira:{% if categoria_entrada_financeira %} {{ categoria_entrada_financeira }} {%else%} Todas {%endif%}</dt>
-    <dt>Categoria de saída financeira:{% if categoria_saida_financeira %} {{ categoria_saida_financeira }} {%else%} Todas {%endif%}</dt>
 </address>
 
 {% endblock %}
@@ -18,7 +14,6 @@
         <tr>
             <th>Data</th>
             <th>Descrição</th>
-            <th>Referência</th>
             <th>Entrada</th>
             <th>Saída</th>
         </tr>
@@ -28,7 +23,6 @@
             <tr>
                 <td>{{ entrada.data|date:"SHORT_DATE_FORMAT" }}</td>
                 <td>{{ entrada.descricao }}</td>
-                <td></td>
                 <td class="valor">R$ {{ entrada.valor|floatformat:2 }}</td>
                 <td></td>
             </tr>
@@ -37,13 +31,12 @@
             <tr class="row">
                 <td>{{ saida.data|date:"SHORT_DATE_FORMAT" }}</td>
                 <td>{{ saida.descricao }}</td>
-                <td>{{ saida.despesa.data_referencia|date:"SHORT_DATE_FORMAT" }}</td>
                 <td></td>
                 <td class="valor-saida valor">R$ {{ saida.valor|floatformat:2 }}</td>
             </tr>
         {% endfor %}
         <tr style="font-weight: bold">
-            <td colspan="3"></td>
+            <td colspan="2"></td>
             <td class="valor">{{ total_entrada }}</td>
             <td class="valor">{{ total_saida }}</td>
         </tr>

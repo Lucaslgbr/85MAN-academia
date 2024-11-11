@@ -1,28 +1,96 @@
-{% load i18n %}
+{% load template_utils %}
 
-{% if app_list %}
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
+                <li>
+                    <a href="#">Finanças<span
+                            title="finanças"
+                            class="nav-label">{{ key }}</span><span
+                            class="fa arrow"></span></a>
+                    <ul class="nav collapse">
+                        <li>
+                            <a class="dropdown-item {% active 'admin:birl_contabancaria_changelist' %}" href="{% url 'admin:birl_contabancaria_changelist' %}"
+                            {% if 'birl_contabancaria_changelist' in request.path %}aria-current="page"{% endif %}>Conta Bancária</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {% active 'admin:birl_entradafinanceira_changelist' %}" href="{% url 'admin:birl_entradafinanceira_changelist' %}"
+                            {% if 'birl_entradafinanceira_changelist' in request.path %}aria-current="page"{% endif %}>Entrada Financeira</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {% active 'admin:birl_mensalidade_changelist' %}" href="{% url 'admin:birl_mensalidade_changelist' %}"
+                            {% if 'birl_mensalidade_changelist' in request.path %}aria-current="page"{% endif %}>Mensalidade</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {% active 'admin:birl_saidafinanceira_changelist' %}" href="{% url 'admin:birl_saidafinanceira_changelist' %}"
+                            {% if 'birl_saidafinanceira_changelist' in request.path %}aria-current="page"{% endif %}>Saída Financeira</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_venda_changelist' %}" href="{% url 'admin:birl_venda_changelist' %}"
+                    {% if 'birl_venda_changelist' in request.path %}aria-current="page"{% endif %}>Venda</a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_aluno_changelist' %}" href="{% url 'admin:birl_aluno_changelist' %}"
+                    {% if 'birl_aluno_changelist' in request.path %}aria-current="page"{% endif %}>Aluno</a>
+                </li>
+                
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_equipamento_changelist' %}" href="{% url 'admin:birl_equipamento_changelist' %}"
+                    {% if 'birl_equipamento_changelist' in request.path %}aria-current="page"{% endif %}>Equipamento</a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_equipamentoaluno_changelist' %}" href="{% url 'admin:birl_equipamentoaluno_changelist' %}"
+                    {% if 'birl_equipamentoaluno_changelist' in request.path %}aria-current="page"{% endif %}>Equipamento Aluno</a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_estoque_changelist' %}" href="{% url 'admin:birl_estoque_changelist' %}"
+                    {% if 'birl_estoque_changelist' in request.path %}aria-current="page"{% endif %}>Estoque</a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_frequencia_changelist' %}" href="{% url 'admin:birl_frequencia_changelist' %}"
+                    {% if 'birl_frequencia_changelist' in request.path %}aria-current="page"{% endif %}>Frequência</a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_horario_changelist' %}" href="{% url 'admin:birl_horario_changelist' %}"
+                    {% if 'birl_horario_changelist' in request.path %}aria-current="page"{% endif %}>Horário</a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_instrutor_changelist' %}" href="{% url 'admin:birl_instrutor_changelist' %}"
+                    {% if 'birl_instrutor_changelist' in request.path %}aria-current="page"{% endif %}>Instrutor</a>
+                </li>
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_matricula_changelist' %}" href="{% url 'admin:birl_matricula_changelist' %}"
+                    {% if 'birl_matricula_changelist' in request.path %}aria-current="page"{% endif %}>Matrícula</a>
+                </li>
+               
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_produto_changelist' %}" href="{% url 'admin:birl_produto_changelist' %}"
+                    {% if 'birl_produto_changelist' in request.path %}aria-current="page"{% endif %}>Produto</a>
+                </li>
+                
+                <li>
+                    <a class="dropdown-item {% active 'admin:birl_usuario_changelist' %}" href="{% url 'admin:birl_usuario_changelist' %}"
+                    {% if 'birl_usuario_changelist' in request.path %}aria-current="page"{% endif %}>Usuário</a>
+                </li>
+                
 
-                {% for app in app_list %}
-                    <li>
-                        <a href="#"><i class="{{ app.icon }}"></i> <span
-                                title="{% blocktranslate with name=app.name %}Models in the {{ name }} application{% endblocktranslate %}"
-                                class="nav-label">{{ app.name }}</span><span
-                                class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            {% for model in app.models %}
-                                <li>
-                                    <a class="dropdown-item" href="{{ model.admin_url }}"{% if model.admin_url in request.path %}
-                                       aria-current="page"{% endif %}>{{ model.name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-
-                {% endfor %}
+                <li>
+                    <a href="#">Relatórios<span
+                            title="Relatórios"
+                            class="nav-label">{{ key }}</span><span
+                            class="fa arrow"></span></a>
+                    <ul class="nav collapse">
+                        <li>
+                            <a class="text-ellipsis dropdown-item {% active 'relatorio_fluxo_caixa' %}"
+                            href="{% url 'relatorio_fluxo_caixa' %}">
+                                Relatório de fluxo de caixa
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
-{% endif %}

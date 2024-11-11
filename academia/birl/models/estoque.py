@@ -2,11 +2,11 @@
 from django.db import models
 
 class Estoque(models.Model):
-    produto = models.CharField(max_length=255)
+    produto = models.ForeignKey('Produto', on_delete=models.DO_NOTHING)
     quantidade = models.IntegerField()
 
     def __str__(self):
-        return self.produto
+        return f'{self.produto}| Estoque: {self.quantidade}'
 
     class Meta:
         verbose_name = "Estoque"

@@ -10,13 +10,14 @@ services:
       dockerfile: ./Dockerfile
     command: >
                 sh -c "
-                python manage.py runserver 0.0.0.0:${HOST_PORT}
+                python manage.py migrate &&
+                python manage.py runserver 0.0.0.0:8000
                 "
     volumes:
     - .:/code
     - media_volume:/code/media
     ports:
-    - ${HOST_PORT}:${HOST_PORT}
+    - 8000:8000
     - 3001:3001
     depends_on:
     - db  
@@ -29,14 +30,12 @@ services:
     container_name: academia_db
     image: postgres:16
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 5434:5434
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-    command: -p ${DB_PORT}
-    expose:
-      - '${DB_PORT}'
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: academia
+      PGPORT: 5434
     volumes:
       - pgdata:/var/lib/postgresql/data
 volumes:
